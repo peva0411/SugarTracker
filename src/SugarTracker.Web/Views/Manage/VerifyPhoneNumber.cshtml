@@ -1,0 +1,14 @@
+﻿@model VerifyPhoneNumberViewModel
+
+<div>
+  <form asp-controller="Manage" asp-action="VerifyPhoneNumber" method="POST">
+    <input asp-for="PhoneNumber" type="hidden"/>
+    <div>
+      <label asp-for="Code"></label>
+      <input asp-for="Code"/>
+    </div>
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
