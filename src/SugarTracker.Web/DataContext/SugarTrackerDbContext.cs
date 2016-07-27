@@ -9,6 +9,7 @@ namespace SugarTracker.Web.DataContext
   {
     public SugarTrackerDbContext(DbContextOptions<SugarTrackerDbContext> contextOptions) : base(contextOptions)
     {
+     
     }
 
     public DbSet<Reading> Readings { get; set; }
