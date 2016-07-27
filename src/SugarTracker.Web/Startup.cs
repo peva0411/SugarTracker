@@ -59,10 +59,10 @@ namespace SugarTracker.Web
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment environment)
     {
-      if (environment.IsDevelopment())
-      {
+      //if (environment.IsDevelopment())
+      //{
         app.UseDeveloperExceptionPage();
-      }
+      //}
       app.UseIdentity();
       app.UseMvcWithDefaultRoute();
       app.Run(async (context) =>
