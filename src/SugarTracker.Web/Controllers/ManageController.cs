@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SugarTracker.Web.Entities;
 using SugarTracker.Web.Services;
 using SugarTracker.Web.Services.Repositories;
@@ -16,12 +18,14 @@ namespace SugarTracker.Web.Controllers
     private readonly UserManager<User> _userManager;
     private readonly ISmsService _smsService;
     private readonly IUserPhoneNumberRepository _phoneNumberRepository;
+    private ILogger<ManageController> _logger;
 
-    public ManageController(UserManager<User> userManager, ISmsService smsService, IUserPhoneNumberRepository phoneNumberRepository)
+    public ManageController(UserManager<User> userManager, ISmsService smsService, IUserPhoneNumberRepository phoneNumberRepository, ILoggerFactory loggerFactory)
     {
       _userManager = userManager;
       _smsService = smsService;
       _phoneNumberRepository = phoneNumberRepository;
+      _logger = loggerFactory.CreateLogger<ManageController>();
     }
 
     [HttpGet]
@@ -44,8 +48,17 @@ namespace SugarTracker.Web.Controllers
     {
       var user = await GetUserAsync();
       var token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
+      _logger.LogInformation("Add Phone Number");
+      try
+      {
+        _smsService.SendMessage(model.PhoneNumber, token);
 
-      _smsService.SendMessage(model.PhoneNumber, token);
+      }
+      catch (Exception ex)
+      {
+
+        _logger.LogError(ex.Message);
+      }
 
       return RedirectToAction(nameof(VerifyPhoneNumber), new {phoneNumber = model.PhoneNumber});
     }
