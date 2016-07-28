@@ -39,7 +39,7 @@ namespace SugarTracker.Web
     public void ConfigureServices(IServiceCollection services)
     {
       var accountSid = Configuration["Twilio.AccountSid"];
-      var authToken = Configuration["Twwilio.AuthToken"];
+      var authToken = Configuration["Twilio.AuthToken"];
       var fromPhone = Configuration["Twilio.FromPhone"];
 
       if (string.IsNullOrEmpty(accountSid)) throw new Exception("Could not load app settings");
@@ -74,7 +74,7 @@ namespace SugarTracker.Web
       app.UseMvcWithDefaultRoute();
       app.Run(async (context) =>
       {
-        await context.Response.WriteAsync(Configuration["Twilio.AccountSid"] + " " + Configuration["Twilio.AuthToken"] + " " + Configuration["Twilio.FromPhone"]);
+        await context.Response.WriteAsync("Page not found");
       });
     }
   }
