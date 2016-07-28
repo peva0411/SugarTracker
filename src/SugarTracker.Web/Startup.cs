@@ -74,7 +74,7 @@ namespace SugarTracker.Web
       app.UseMvcWithDefaultRoute();
       app.Run(async (context) =>
       {
-        await context.Response.WriteAsync(Configuration["Twilio.AccountSid"]);
+        await context.Response.WriteAsync(Configuration["Twilio.AccountSid"] + " " + Configuration["Twilio.AuthToken"] + " " + Configuration["Twilio.FromPhone"]);
       });
     }
   }
