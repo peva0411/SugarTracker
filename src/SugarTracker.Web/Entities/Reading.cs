@@ -7,9 +7,9 @@ namespace SugarTracker.Web.Entities
     public int ReadingId { get; set; }
     public double Value { get; set; }
     public DateTime ReadingTime { get; set; }
-    public int UserId { get; set; }
+    public string UserId { get; set; }
     public string Notes { get; set; }
-    public int RawReadingId { get; set; }
+    public int? RawReadingId { get; set; }
 
     public ReadingType Type { get; set; }
   }
@@ -17,6 +17,9 @@ namespace SugarTracker.Web.Entities
   public enum ReadingType
   {
     Fasting,
-    Meal
+    Breakfast,
+    Lunch,
+    Dinner,
+    AdHoc
   }
 }

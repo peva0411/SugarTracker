@@ -12,6 +12,7 @@ namespace SugarTracker.Web.Services.Repositories
   {
     IEnumerable<UserPhoneNumber> GetUserPhoneNumbers(string userId);
     void AddUserPhoneNumber(UserPhoneNumber userPhoneNumber);
+    UserPhoneNumber FindUserByNumber(string number);
   }
 
     public class UserPhoneNumberRepository:IUserPhoneNumberRepository
@@ -32,6 +33,11 @@ namespace SugarTracker.Web.Services.Repositories
       {
          _context.Add(userPhoneNumber);
         _context.SaveChanges();
+      }
+
+      public UserPhoneNumber FindUserByNumber(string number)
+      {
+        return _context.UserPhoneNumbers.FirstOrDefault(u => u.PhoneNumber == number);
       }
     }
 }

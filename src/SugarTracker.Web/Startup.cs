@@ -50,6 +50,9 @@ namespace SugarTracker.Web
 
       services.AddDbContext<SugarTrackerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
       services.AddTransient<IRawReadingsRepository, RawReadingsRepository>();
+      services.AddTransient<IReadigRepository, ReadingRepository>();
+      services.AddTransient<IReadingParser, ReadingParser>();
+      services.AddTransient<IUserPhoneLookupService, UserPhoneLookupService>();
       services.AddTransient<IUserPhoneNumberRepository, UserPhoneNumberRepository>();
       services.AddTransient<IReadingsService, ReadingsService>();
 

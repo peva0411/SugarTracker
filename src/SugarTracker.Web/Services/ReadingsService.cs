@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SugarTracker.Web.Entities;
 using SugarTracker.Web.Services.Repositories;
 
@@ -7,35 +8,32 @@ namespace SugarTracker.Web.Services
 {
   public interface IReadingsService
   {
-    IEnumerable<Reading> GetReadings();
+    IEnumerable<Reading> GetReadings(string phoneNumber);
     IEnumerable<RawReading> GetRawReadings();
 
-    void SaveRawReading(RawReading rawReading);
+    Reading SaveReading(RawReading rawReading);
   }
+
 
   public class ReadingsService : IReadingsService
   {
     private readonly IRawReadingsRepository _rawReadingsRepository;
+    private readonly IReadigRepository _readigRepository;
+    private readonly IReadingParser _readingParser;
+    private readonly IUserPhoneLookupService _userPhoneLookup;
 
-    public ReadingsService(IRawReadingsRepository rawReadingsRepository)
+    public ReadingsService(IRawReadingsRepository rawReadingsRepository, IReadigRepository readigRepository, IReadingParser readingParser, IUserPhoneLookupService userPhoneLookup)
     {
       _rawReadingsRepository = rawReadingsRepository;
+      _readigRepository = readigRepository;
+      _readingParser = readingParser;
+      _userPhoneLookup = userPhoneLookup;
     }
 
-    public IEnumerable<Reading> GetReadings()
+    public IEnumerable<Reading> GetReadings(string phoneNumber)
     {
-      return new List<Reading>
-      {
-        new Reading()
-        {
-          ReadingId = 1,
-          ReadingTime = DateTime.Now,
-          Type = ReadingType.Fasting,
-          Value = 120.0,
-          Notes = "This is a test",
-          UserId = 1
-        }
-      };
+      var userId = _userPhoneLookup.LookupUserId(phoneNumber);
+      return _readigRepository.GetUserReadings(userId).OrderByDescending(r => r.ReadingTime).Take(6);
     }
 
     public IEnumerable<RawReading> GetRawReadings()
@@ -43,9 +41,22 @@ namespace SugarTracker.Web.Services
       return _rawReadingsRepository.GetAllRawReadings();
     }
 
-    public void SaveRawReading(RawReading rawReading)
+    public Reading SaveReading(RawReading rawReading)
     {
+      //save raw
+      rawReading.ReadingTime = DateTime.UtcNow;
       _rawReadingsRepository.AddRawReading(rawReading);
+
+      //convert raw
+      var reading = _readingParser.ParseRawReading(rawReading);
+      reading.UserId = _userPhoneLookup.LookupUserId(rawReading.FromPhoneNumber);
+      reading.RawReadingId = rawReading.RawReadingId;
+      reading.ReadingTime = rawReading.ReadingTime;
+
+      //save converted
+      _readigRepository.AddReading(reading);
+
+      return reading;
     }
   }
 }

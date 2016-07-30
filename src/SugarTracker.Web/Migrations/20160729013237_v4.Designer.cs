@@ -8,9 +8,10 @@ using SugarTracker.Web.DataContext;
 namespace SugarTracker.Web.Migrations
 {
     [DbContext(typeof(SugarTrackerDbContext))]
-    partial class SugarTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160729013237_v4")]
+    partial class v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
