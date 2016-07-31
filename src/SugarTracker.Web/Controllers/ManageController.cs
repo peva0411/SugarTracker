@@ -83,6 +83,7 @@ namespace SugarTracker.Web.Controllers
       if (code == model.Code)
       {
         _phoneNumberRepository.AddUserPhoneNumber(new UserPhoneNumber() {PhoneNumber = model.PhoneNumber, UserId = user.Id});
+        _smsService.SendMessage(model.PhoneNumber, $"Welcome {user.UserName}! you can now send readings from this number: use format type[f,b,l,d,a],reading,notes[optional]");
         return RedirectToAction("Index", "Home");
       }
       return View(model);

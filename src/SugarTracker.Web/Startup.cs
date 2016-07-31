@@ -73,6 +73,10 @@ namespace SugarTracker.Web
       //{
         app.UseDeveloperExceptionPage();
       //}
+
+      app.UseFileServer();
+     
+
       app.UseIdentity();
       app.UseMvcWithDefaultRoute();
       app.Run(async (context) =>
