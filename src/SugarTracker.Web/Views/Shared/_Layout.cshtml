@@ -1,4 +1,5 @@
-﻿
+﻿@using SugarTracker.Web.Entities
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +12,27 @@
 <nav class="navbar navbar-default navbar-inverse">
   <div class="container-fluid">
     <div class="class=navbar-header">
-       <a class="navbar-brand" href="/">SugarTracker</a>
+      <a class="navbar-brand" href="/">SugarTracker</a>
+    </div>
+    <div class="navbar navbar-nav navbar-right">
+      @if (User.Identity.IsAuthenticated)
+      {
+        <form method="post" asp-controller="Account" asp-action="Logout" class="navbar-form">
+          @User.Identity.Name
+          <input type="submit" value="Logout" class="btn btn-link navbar-btn navbar-link"/>
+        </form>
+      }
+      else
+      {
+        <a asp-controller="Account" asp-action="Login" class="btn btn-default btn-xs navbar-btn">Login</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-default btn-xs navbar-btn">Register</a>
+      }
     </div>
   </div>
 </nav>
-
-<div>
+<div class="container">
   @RenderBody()
 </div>
 </body>
+@RenderSection("Scripts", false)
 </html>

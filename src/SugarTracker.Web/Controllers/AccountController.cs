@@ -40,6 +40,13 @@ namespace SugarTracker.Web.Controllers
         return View(model);
       }
 
+    [HttpPost]
+    public async Task<IActionResult> Logout()
+    {
+      await _signInManager.SignOutAsync();
+      return RedirectToAction(nameof(HomeController.Index), "Home");
+    }
+
       [HttpGet]
       public ViewResult Register()
       {

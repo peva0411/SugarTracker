@@ -4,9 +4,9 @@ using System.Linq;
 using SugarTracker.Web.DataContext;
 using SugarTracker.Web.Entities;
 
-namespace SugarTracker.Web.Services
+namespace SugarTracker.Web.Services.Repositories
 {
-  public interface IReadigRepository
+  public interface  IReadingRepository
   {
     void AddReading(Reading reading);
     IEnumerable<Reading> GetAllReadings();
@@ -15,7 +15,7 @@ namespace SugarTracker.Web.Services
     IEnumerable<Reading> GetUserReadings(string userId);
   }
 
-  public class ReadingRepository: IReadigRepository
+  public class ReadingRepository: IReadingRepository
   {
     private readonly SugarTrackerDbContext _context;
 
@@ -37,12 +37,19 @@ namespace SugarTracker.Web.Services
 
     public IEnumerable<Reading> GetReadings(DateTime start, DateTime end)
     {
-      throw new NotImplementedException();
+      var readings = _context.Readings.Where(r => r.ReadingTime >= start.Date && r.ReadingTime <= end.Date);
+
+      foreach (var reading in readings) // specifiy that the kind is Utc
+      {
+        reading.ReadingTime = DateTime.SpecifyKind(reading.ReadingTime, DateTimeKind.Utc);
+      }
+
+      return readings;
     }
 
     public IEnumerable<Reading> GetReadings(string userId, DateTime start, DateTime end)
     {
-      throw new NotImplementedException();
+      return _context.Readings.Where(r => r.UserId == userId && r.ReadingTime >= start && r.ReadingTime <= end);
     }
 
     public IEnumerable<Reading> GetUserReadings(string userId)

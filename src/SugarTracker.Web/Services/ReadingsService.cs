@@ -18,14 +18,14 @@ namespace SugarTracker.Web.Services
   public class ReadingsService : IReadingsService
   {
     private readonly IRawReadingsRepository _rawReadingsRepository;
-    private readonly IReadigRepository _readigRepository;
+    private readonly IReadingRepository _readingRepository;
     private readonly IReadingParser _readingParser;
     private readonly IUserPhoneLookupService _userPhoneLookup;
 
-    public ReadingsService(IRawReadingsRepository rawReadingsRepository, IReadigRepository readigRepository, IReadingParser readingParser, IUserPhoneLookupService userPhoneLookup)
+    public ReadingsService(IRawReadingsRepository rawReadingsRepository, IReadingRepository readingRepository, IReadingParser readingParser, IUserPhoneLookupService userPhoneLookup)
     {
       _rawReadingsRepository = rawReadingsRepository;
-      _readigRepository = readigRepository;
+      _readingRepository = readingRepository;
       _readingParser = readingParser;
       _userPhoneLookup = userPhoneLookup;
     }
@@ -33,7 +33,7 @@ namespace SugarTracker.Web.Services
     public IEnumerable<Reading> GetReadings(string phoneNumber)
     {
       var userId = _userPhoneLookup.LookupUserId(phoneNumber);
-      return _readigRepository.GetUserReadings(userId).OrderByDescending(r => r.ReadingTime).Take(6);
+      return _readingRepository.GetUserReadings(userId).OrderByDescending(r => r.ReadingTime).Take(6);
     }
 
     public IEnumerable<RawReading> GetRawReadings()
@@ -54,7 +54,7 @@ namespace SugarTracker.Web.Services
       reading.ReadingTime = rawReading.ReadingTime;
 
       //save converted
-      _readigRepository.AddReading(reading);
+      _readingRepository.AddReading(reading);
 
       return reading;
     }

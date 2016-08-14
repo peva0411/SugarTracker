@@ -20,7 +20,8 @@
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
     "Twilio.Mvc": "3.2.0",
     "Twilio": "4.7.2",
-    "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0"
+    "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
+    "DocumentFormat.OpenXml": "2.5.0"
   },
 
   "tools": {
@@ -44,7 +45,8 @@
     "include": [
       "wwwroot",
       "Views",
-      "web.config"
+      "web.config",
+      "Reports"
     ]
   },
 

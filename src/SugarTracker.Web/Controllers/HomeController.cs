@@ -10,6 +10,7 @@ namespace SugarTracker.Web.Controllers
     {
       public ViewResult Index()
       {
+       
         return View();
       }
 

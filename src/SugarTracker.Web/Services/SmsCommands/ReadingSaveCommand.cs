@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using SugarTracker.Web.Controllers.Api;
 using SugarTracker.Web.Models;
@@ -21,6 +22,7 @@ namespace SugarTracker.Web.Services.SmsCommands
       try
       {
         var reading = _readingsService.SaveReading(rawReading);
+        var localTimeZone = TimeZoneInfo.GetSystemTimeZones();
         responseMessage =
           $"Successfully added reading of {reading.Value} mg/dL at {reading.ReadingTime.ToLocalTime()}";
       }

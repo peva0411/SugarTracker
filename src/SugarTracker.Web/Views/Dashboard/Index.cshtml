@@ -1,0 +1,18 @@
+﻿@{
+  ViewBag.Title = "Dashboard";
+}
+
+@section Scripts{
+  <script src="/lib/angular/angular.min.js"></script>
+  <script src="/lib/moment/moment.js"></script>
+  <script src="/js/dashboard/dashboard.module.js"></script>
+  <script src="/js/constants.js"></script>
+  <script src="/js/dashboard/week-view.component.js"></script>
+  <script src="/js/dashboard/reading-day.component.js"></script>
+}
+
+<div data-ng-app="dashboard">
+  <h1>Dashboard</h1>
+  <week-view></week-view>
+</div>
+
