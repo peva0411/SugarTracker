@@ -30,10 +30,10 @@ namespace SugarTracker.Web.Controllers.Api
       }
 
       [HttpPost]
+      [Authorize]
       [Route("")]
       public IActionResult Post([FromBody]Reading reading)
       {
-
         var id = _userManager.GetUserId(HttpContext.User);
         reading.UserId = id;
         _readingRepository.AddReading(reading);

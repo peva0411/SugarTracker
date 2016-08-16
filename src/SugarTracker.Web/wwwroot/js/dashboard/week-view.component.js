@@ -11,10 +11,7 @@
 
   function getStartOfWeek(moment) {
 
-    var cur = moment().day();
-    var adjust = -(6 - cur);
-
-    var startDate = moment().day(adjust).utc();
+    var startDate = moment().startOf('week').add(1, 'day').utc();
     return startDate.format("YYYY-M-D");
   }
    
@@ -43,7 +40,7 @@
       date.utc();
 
       $http.post("/api/readings/", {
-        ReadingType: type,
+        Type: type,
         Value: addedReading.value,
         ReadingTime: date.toDate(),
         Notes: addedReading.notes

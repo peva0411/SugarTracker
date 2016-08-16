@@ -1,60 +1,114 @@
-﻿<div class="panel panel-primary" ng-repeat="day in vm.weekView.days">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{day.dayOfWeek}} - {{day.date | date}}</h3>
+﻿
+
+<div class="row">
+  <div class="col-lg-2">
+    <button class="btn btn-link"> Previous Week</button>
   </div>
-  <div class="panel-body">
-    <table class="table table-condensed">
-      <thead>
-      <tr>
-        <th>Type</th>
-        <th>Value</th>
-        <th>Time</th>
-        <th>Notes</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Fasting</td>
-        <td>
-          <span ng-hide="day.fasting.edit" >{{day.fasting.value}}</span>
-          <input class="form-control input-sm" ng-show="day.fasting.edit" type="text" ng-model="day.fasting.value"></input> 
-        </td>
-        <td>
-          <span ng-hide="day.fasting.edit">{{day.fasting.readingTime | date:"shortTime"}}</span> 
-          <input class="form-control input-sm" ng-show="day.fasting.edit" type="text" ng-model="day.fasting.readingTime"></input> 
-        </td>
-        <td>
-          <span ng-hide="day.fasting.edit">{{day.fasting.notes}}</span>
-          <input class="form-control input-sm" ng-show="day.fasting.edit" type="text" ng-model="day.fasting.notes"/>
-        </td>
-        <td>
-          <button ng-hide="day.fasting || day.fasting.edit" ng-click="day.fasting.edit = true;" class="btn btn-xs">Add</button>
-          <button ng-show="day.fasting.edit" class="btn btn-xs" ng-click="vm.save(day, 'fasting')">Save</button>
-        </td>
-      </tr>
-      <tr>
-        <td>Breakfast</td>
-        <td>{{day.breakfast.value}}</td>
-        <td>{{day.breakfast.readingTime | date:"shortTime"}}</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Lunch</td>
-        <td>{{day.lunch.value}}</td>
-        <td>{{day.lunch.readingTime | date : "shortTime"}} </td>
-        <td></td>
-        <td></td>
-      </tr>
-        <tr>
-          <td>Dinner</td>
-          <td>{{day.dinner.value}}</td>
-          <td>{{day.dinner.readingTime | date : "shortTime"}} </td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col-lg-8"></div>
+  <div class="col-lg-2">
+    <button class="btn btn-link">
+      Next Week
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-primary" ng-repeat="day in vm.weekView.days">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{day.dayOfWeek}} - {{day.date | date}}</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Value</th>
+              <th>Time</th>
+              <th>Notes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fasting</td>
+              <td>
+                <span ng-hide="day.fasting.edit">{{day.fasting.value}}</span>
+                <input class="form-control input-sm" ng-show="day.fasting.edit" type="text" ng-model="day.fasting.value"></input>
+              </td>
+              <td>
+                <span ng-hide="day.fasting.edit">{{day.fasting.readingTime | date:"shortTime"}}</span>
+                <input class="form-control input-sm" ng-show="day.fasting.edit" type="text" ng-model="day.fasting.readingTime"></input>
+              </td>
+              <td>
+                <span ng-hide="day.fasting.edit">{{day.fasting.notes}}</span>
+                <input class="form-control input-sm" ng-show="day.fasting.edit" type="text" ng-model="day.fasting.notes" />
+              </td>
+              <td>
+                <button ng-hide="day.fasting || day.fasting.edit" ng-click="day.fasting.edit = true;" class="btn btn-xs">Add</button>
+                <button ng-show="day.fasting.edit" class="btn btn-xs" ng-click="vm.save(day, 'fasting')">Save</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Breakfast</td>
+              <td>
+                <span ng-hide="day.breakfast.edit">{{day.breakfast.value}}</span>
+                <input class="form-control input-sm" ng-show="day.breakfast.edit" type="text" ng-model="day.breakfast.value" />
+              </td>
+              <td>
+                <span ng-hide="day.breakfast.edit"> {{day.breakfast.readingTime | date:"shortTime"}} </span>
+                <input class="form-control input-sm" ng-show="day.breakfast.edit" type="text" ng-model="day.breakfast.readingTime" />
+              </td>
+              <td>
+                <span ng-hide="day.breakfast.edit"> {{day.breakfast.notes}} </span>
+                <input class="form-control input-sm" ng-show="day.breakfast.edit" type="text" ng-model="day.breakfast.notes" />
+              </td>
+              <td>
+                <button ng-hide="day.breakfast || day.breakfast.edit" ng-click="day.breakfast.edit = true;" class="btn btn-xs">Add</button>
+                <button ng-show="day.breakfast.edit" class="btn btn-xs" ng-click="vm.save(day, 'breakfast')">Save</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Lunch</td>
+              <td>
+                <span ng-hide="day.lunch.edit">{{day.lunch.value}}</span>
+                <input class="form-control input-sm" ng-show="day.lunch.edit" type="text" ng-model="day.lunch.value" />
+              </td>
+              <td>
+                <span ng-hide="day.lunch.edit"> {{day.lunch.readingTime | date:"shortTime"}} </span>
+                <input class="form-control input-sm" ng-show="day.lunch.edit" type="text" ng-model="day.lunch.readingTime" />
+              </td>
+              <td>
+                <span ng-hide="day.lunch.edit"> {{day.lunch.notes}} </span>
+                <input class="form-control input-sm" ng-show="day.lunch.edit" type="text" ng-model="day.lunch.notes" />
+              </td>
+              <td>
+                <button ng-hide="day.lunch || day.lunch.edit" ng-click="day.lunch.edit = true;" class="btn btn-xs">Add</button>
+                <button ng-show="day.lunch.edit" class="btn btn-xs" ng-click="vm.save(day, 'lunch')">Save</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Dinner</td>
+              <td>
+                <span ng-hide="day.dinner.edit">{{day.dinner.value}}</span>
+                <input class="form-control input-sm" ng-show="day.dinner.edit" type="text" ng-model="day.dinner.value" />
+              </td>
+              <td>
+                <span ng-hide="day.dinner.edit"> {{day.dinner.readingTime | date:"shortTime"}} </span>
+                <input class="form-control input-sm" ng-show="day.dinner.edit" type="text" ng-model="day.dinner.readingTime" />
+              </td>
+              <td>
+                <span ng-hide="day.dinner.edit"> {{day.dinner.notes}} </span>
+                <input class="form-control input-sm" ng-show="day.dinner.edit" type="text" ng-model="day.dinner.notes" />
+              </td>
+              <td>
+                <button ng-hide="day.dinner || day.dinner.edit" ng-click="day.dinner.edit = true;" class="btn btn-xs">Add</button>
+                <button ng-show="day.dinner.edit" class="btn btn-xs" ng-click="vm.save(day, 'dinner')">Save</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
