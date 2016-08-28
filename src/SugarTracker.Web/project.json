@@ -21,7 +21,8 @@
     "Twilio.Mvc": "3.2.0",
     "Twilio": "4.7.2",
     "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
-    "DocumentFormat.OpenXml": "2.5.0"
+    "DocumentFormat.OpenXml": "2.5.0",
+    "ClosedXML": "0.76.0"
   },
 
   "tools": {

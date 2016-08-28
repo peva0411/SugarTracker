@@ -39,17 +39,24 @@ namespace SugarTracker.Web.Services.Repositories
     {
       var readings = _context.Readings.Where(r => r.ReadingTime >= start.Date && r.ReadingTime <= end.Date);
 
-      foreach (var reading in readings) // specifiy that the kind is Utc
-      {
-        reading.ReadingTime = DateTime.SpecifyKind(reading.ReadingTime, DateTimeKind.Utc);
-      }
+      SetUtcTimes(readings);
 
       return readings;
     }
 
+    private static void SetUtcTimes(IQueryable<Reading> readings)
+    {
+      foreach (var reading in readings) // specifiy that the kind is Utc
+      {
+        reading.ReadingTime = DateTime.SpecifyKind(reading.ReadingTime, DateTimeKind.Utc);
+      }
+    }
+
     public IEnumerable<Reading> GetReadings(string userId, DateTime start, DateTime end)
     {
-      return _context.Readings.Where(r => r.UserId == userId && r.ReadingTime >= start && r.ReadingTime <= end);
+      var readings = _context.Readings.Where(r => r.UserId == userId && r.ReadingTime >= start && r.ReadingTime <= end);
+      SetUtcTimes(readings);
+      return readings;
     }
 
     public IEnumerable<Reading> GetUserReadings(string userId)

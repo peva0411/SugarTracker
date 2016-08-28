@@ -1,16 +1,20 @@
 ﻿
 
 <div class="row">
-  <div class="col-lg-2">
+  <div class="col-lg-5">
     <button class="btn btn-link"> Previous Week</button>
   </div>
-  <div class="col-lg-8"></div>
-  <div class="col-lg-2">
-    <button class="btn btn-link">
+  <div class="col-lg-3">
+    <a class="btn btn-primary" ng-href="/api/reports/{{vm.date}}/{{vm.weekView.userId}}" >Create Report</a>
+  </div>
+  <div class="col-lg-4">
+    <button class="btn btn-link pull-right">
       Next Week
     </button>
   </div>
 </div>
+
+<div class="row"></div>
 
 <div class="row">
   <div class="col-lg-12">

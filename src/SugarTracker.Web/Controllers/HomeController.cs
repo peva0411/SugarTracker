@@ -8,9 +8,15 @@ namespace SugarTracker.Web.Controllers
 {
     public class HomeController : Controller
     {
-      public ViewResult Index()
+      
+
+      public IActionResult Index()
       {
-       
+        if (HttpContext.User.Identity.IsAuthenticated)
+        {
+          return RedirectToAction("index", "dashboard");
+        }
+        
         return View();
       }
 

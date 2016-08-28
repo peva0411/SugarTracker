@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using SugarTracker.Web.DataContext;
 using SugarTracker.Web.Entities;
 using SugarTracker.Web.Services;
+using SugarTracker.Web.Services.Reporting;
 using SugarTracker.Web.Services.Repositories;
 
 namespace SugarTracker.Web
@@ -19,12 +20,16 @@ namespace SugarTracker.Web
 
     public IConfiguration Configuration { get; }
 
+    public string RootPath { get;}
+
     public Startup(IHostingEnvironment env)
     {
       var builder = new ConfigurationBuilder()
         .SetBasePath(env.ContentRootPath)
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .AddEnvironmentVariables();
+
+      RootPath = env.ContentRootPath;
 
       if (env.IsDevelopment())
       {
@@ -55,6 +60,9 @@ namespace SugarTracker.Web
       services.AddTransient<IUserPhoneLookupService, UserPhoneLookupService>();
       services.AddTransient<IUserPhoneNumberRepository, UserPhoneNumberRepository>();
       services.AddTransient<IReadingsService, ReadingsService>();
+      services.AddTransient<IUserRepository, UserRepository>();
+      services.AddTransient<IReportGenerator>(
+        provider => new ExcelReportGenerator(RootPath + "/" + "Reports/template.xlsx", provider.GetService<IReadingsService>(), provider.GetService<IUserRepository>()));
 
       services.AddTransient<ISmsService, TwilioSmsService>(
         provider => new TwilioSmsService(accountSid, authToken, fromPhone));

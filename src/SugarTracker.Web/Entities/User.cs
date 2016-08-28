@@ -8,6 +8,12 @@ namespace SugarTracker.Web.Entities
 {
     public class User : IdentityUser
     {
+      public DateTime DOB { get; set; }
+      public string DrName { get; set; }
+      public string Medications { get; set; }
+     public string DisplayName { get; set; }
+      public string DisplayPhone { get; set; }
+
       public User()
       {
         UserPhoneNumbers = new List<UserPhoneNumber>();

@@ -11,7 +11,7 @@
 
   function getStartOfWeek(moment) {
 
-    var startDate = moment().startOf('week').add(1, 'day').utc();
+    var startDate = moment().add(-1, 'day').startOf('week').add(1, 'day').utc();
     return startDate.format("YYYY-M-D");
   }
    
@@ -22,6 +22,7 @@
     vm.$onInit = function() {
 
       var date = getStartOfWeek(moment);
+      vm.date = date;
 
       fetchWeek($http, date).then(function(weekview) {
         vm.weekView = weekview;

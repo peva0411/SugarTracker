@@ -15,7 +15,7 @@ namespace SugarTracker.Web.DataContext
     public DbSet<Reading> Readings { get; set; }
     public DbSet<RawReading> RawReadings { get; set; }
     public DbSet<UserPhoneNumber> UserPhoneNumbers { get; set; } 
-
+  
     protected override void OnModelCreating(ModelBuilder builder)
     {
       builder.Entity<User>().HasMany(u => u.UserPhoneNumbers).WithOne(n => n.User).HasForeignKey(n => n.UserId);
